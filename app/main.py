@@ -4,9 +4,11 @@ from sqlalchemy.orm import Session
 from sqlalchemy import text
 from core.database import get_db, engine, Base
 
+from models import User, Routine, RoutineStep, RoutineCompletion, StepCompletion
+
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="Bulle API")
+app = FastAPI(title="Bulle API - Routine TDAH")
 
 app.add_middleware(
     CORSMiddleware,
@@ -18,7 +20,7 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    return {"message": "Bulle API is running!"}
+    return {"message": "Bulle API is running! 🎯"}
 
 @app.get("/health")
 async def health_check(db: Session = Depends(get_db)):

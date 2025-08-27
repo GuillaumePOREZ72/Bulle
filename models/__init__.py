@@ -1,6 +1,6 @@
 from .user import User
-from .routine import Routine, RoutineTask
-from .completion import RoutineCompletion
+from .routine import Routine, RoutineStep
+from .completion import RoutineCompletion, StepCompletion
 
 
 __all__ = [
@@ -8,4 +8,5 @@ __all__ = [
     "Routine",
     "RoutineStep",
     "RoutineCompletion",
+    "StepCompletion"
 ]
