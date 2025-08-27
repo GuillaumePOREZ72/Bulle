@@ -1,18 +1,11 @@
 from .user import User
-from .routine import Routine, RoutineTask, RoutineCompletion
-from .task import Task, TaskCompletion
-from .reward import Reward, UserReward
-from .achievement import Achievement, UserAchievement
+from .routine import Routine, RoutineTask
+from .completion import RoutineCompletion
+
 
 __all__ = [
     "User",
     "Routine",
-    "RoutineTask",
+    "RoutineStep",
     "RoutineCompletion",
-    "Task",
-    "TaskCompletion",
-    "Reward",
-    "UserReward",
-    "Achievement",
-    "UserAchievement",
 ]
