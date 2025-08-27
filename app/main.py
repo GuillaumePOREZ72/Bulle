@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from sqlalchemy import text
-from database import get_db, engine, Base
+from core.database import get_db, engine, Base
 
 Base.metadata.create_all(bind=engine)
 
