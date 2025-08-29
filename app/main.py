@@ -8,7 +8,11 @@ from models import User, Routine, RoutineStep, RoutineCompletion, StepCompletion
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="Bulle API - Routine TDAH")
+app = FastAPI(
+    title="Bulle API - Routine TDAH",
+    description="API Backend pour l'application Bulle",
+    version="0.1.0"
+)
 
 app.add_middleware(
     CORSMiddleware,
