@@ -5,7 +5,7 @@ from typing import Optional
 class UserBase(BaseModel):
     first_name: str
     username: str
-    favorite_color: Otptional[str] = "#A7D8F0"
+    favorite_color: Optional[str] = "#A7D8F0"
 
 class UserCreate(UserBase):
     birth_date: Optional[date] = None
