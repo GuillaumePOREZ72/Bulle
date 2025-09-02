@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 from core.database import get_db, engine, Base
-from api.v1 import users
+from api.v1 import users, routines
 from models import User, Routine, RoutineStep, RoutineCompletion, StepCompletion
 
 Base.metadata.create_all(bind=engine)
@@ -23,6 +23,7 @@ app.add_middleware(
 )
 
 app.include_router(users.router, prefix="/api/v1")
+app.include_router(routines.router, prefix="/api/v1")
 
 @app.get("/")
 async def root():

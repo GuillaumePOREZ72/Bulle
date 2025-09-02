@@ -19,7 +19,7 @@ class Routine(Base):
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
     # Relations
-    steps = relationship("RoutineStep", back_populates="routine", order_by="RoutineStep.oreder_index")
+    steps = relationship("RoutineStep", back_populates="routine", order_by="RoutineStep.order_index")
     completions = relationship("RoutineCompletion", back_populates="routine")
 
 

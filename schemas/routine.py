@@ -31,6 +31,7 @@ class RoutineBase(BaseModel):
     estimated_time: Optional[int] = None
 
 class RoutineCreate(RoutineBase):
+    user_id: int
     steps: List[RoutineStepCreate] = []
 
 class RoutineResponse(RoutineBase):
