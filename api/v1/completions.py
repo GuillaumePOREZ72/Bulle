@@ -60,3 +60,42 @@ def complete_step(step_id: int, completion_data: StepCompletionCreate, db: Sessi
     db.refresh(db_step_completion)
 
     return db_step_completion
+
+@router.get("/user/{user_id}/stats")
+def get_user_stats(user_id: int, db: Session = Depends(get_db)):
+    """
+    Récupère les statistiques d'un utilisateur
+    """
+
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    total_completions = db.query(RoutineCompletion).filter(RoutineCompletion.user_id == user_id).count()
+
+    # Routines terminées cette semaine (exemple simple)
+    from datetime import timedelta
+    week_ago = datetime.now() - timedelta(days=7)
+    week_completions = db.query(RoutineCompletion).filter(RoutineCompletion.user_id == user_id,
+     RoutineCompletion.completed_at >= week_ago
+    ).count()
+
+    return {
+        "user_id": user_id,
+        "username": user.username,
+        "points": user.points,
+        "current_streak": user.current_streak,
+        "total_routines_completed": total_completions,
+        "routines_this_week": week_completions,
+        "level": user.points // 100 + 1 # Niveau basé sur les points
+    }
+
+    @router.get("/user/{user_id}/history", response_model=List[RoutineCompletionResponse])
+    def get_completion_history(user_id: int, limit: int = 10, db: Session = Depends(get_db)):
+        """
+        Récupère l'historique des routines terminées par un utilisateur
+        """
+
+        completions = db.query(RoutineCompletion).filter(RoutineCompletion.user_id == user_id).order_by(RoutineCompletion.completed_at.desc()).limit(limit).all()
+        
+        return completions
