@@ -21,7 +21,7 @@ class StepCompletion(Base):
     __tablename__ = "step_completions"
 
     id = Column(Integer, primary_key=True, index=True)
-    routine_completion_id = Column(Integer, ForeignKey("routine_completions.id"), nullable=False)
+    routine_completion_id = Column(Integer, ForeignKey("routine_completions.id"), nullable=True)
     step_id = Column(Integer, ForeignKey("routine_steps.id"), nullable=False)
     completed_at = Column(DateTime(timezone=True), server_default=func.now())
     time_taken = Column(Integer)

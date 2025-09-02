@@ -15,7 +15,6 @@ class RoutineCompletionResponse(BaseModel):
         from_attributes = True
 
 class StepCompletionCreate(BaseModel):
-    step_id: int
     time_taken: Optional[int] = None
 
 class StepCompletionResponse(BaseModel):

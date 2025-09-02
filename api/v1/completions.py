@@ -44,7 +44,7 @@ def complete_routine(routine_id: int, user_id: int, db: Session = Depends(get_db
 @router.post("/step/{step_id}", response_model=StepCompletionResponse)
 def complete_step(step_id: int, completion_data: StepCompletionCreate, db: Session = Depends(get_db)):
     """
-    Marquer une étape comme terminée
+    Marquer une étape individuelle comme terminée
     """
 
     step = db.query(RoutineStep).filter(RoutineStep.id == step_id).first()
@@ -90,12 +90,12 @@ def get_user_stats(user_id: int, db: Session = Depends(get_db)):
         "level": user.points // 100 + 1 # Niveau basé sur les points
     }
 
-    @router.get("/user/{user_id}/history", response_model=List[RoutineCompletionResponse])
-    def get_completion_history(user_id: int, limit: int = 10, db: Session = Depends(get_db)):
-        """
-        Récupère l'historique des routines terminées par un utilisateur
-        """
+@router.get("/user/{user_id}/history", response_model=List[RoutineCompletionResponse])
+def get_completion_history(user_id: int, limit: int = 10, db: Session = Depends(get_db)):
+    """
+    Récupère l'historique des routines terminées par un utilisateur
+    """
 
-        completions = db.query(RoutineCompletion).filter(RoutineCompletion.user_id == user_id).order_by(RoutineCompletion.completed_at.desc()).limit(limit).all()
-        
-        return completions
+    completions = db.query(RoutineCompletion).filter(RoutineCompletion.user_id == user_id).order_by(RoutineCompletion.completed_at.desc()).limit(limit).all()
+    
+    return completions
